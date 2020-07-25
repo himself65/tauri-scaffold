@@ -1,18 +1,18 @@
 [package]
-name = "tauri-work"
+name = "unknown-project"
 version = "0.1.0"
 description = "A Tauri App"
 authors = [ "you" ]
 license = ""
 repository = ""
-default-run = "tauri-work"
+default-run = "unknown-project"
 edition = "2018"
 build = "src/build.rs"
 
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = [ "derive" ] }
-tauri = { version = "0.7", features = [ "all-api" ] }
+tauri = { version = "0.8", features = [ "all-api" ] }
 
 [target."cfg(windows)".build-dependencies]
 winres = "0.1"
@@ -22,5 +22,5 @@ embedded-server = [ "tauri/embedded-server" ]
 no-server = [ "tauri/no-server" ]
 
 [[bin]]
-name = "tauri-work"
+name = "unknown-project"
 path = "src/main.rs"

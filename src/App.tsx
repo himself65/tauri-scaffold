@@ -1,7 +1,11 @@
+import 'react-app-polyfill/ie11'
+import 'react-app-polyfill/stable'
 import React, { useState } from 'react'
-import { Button } from '@material-ui/core'
+import { Button } from 'antd'
 import './App.css'
 import { exampleCall } from './api'
+
+import 'antd/dist/antd.min.css'
 
 const App = () => {
   const [content, setContent] = useState<string>('nothing')
