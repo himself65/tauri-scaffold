@@ -1,9 +1,9 @@
-const PORT = +process.env.MOCK_PORT || 3000
+const PORT = +process.env.PORT || 3000
 const app = require('express')()
+const jsonParser = require('body-parser').json()
 
-app.post('/hello', (req, res) => {
-  const { id } = req.body
-  res.write(`hello ${id}`)
+app.post('/hello', jsonParser, (req, res) => {
+  res.write(`hello ${req.body.id}`)
   res.end()
 })
 

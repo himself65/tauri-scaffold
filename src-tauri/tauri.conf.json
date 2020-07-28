@@ -2,7 +2,7 @@
   "build": {
     "distDir": "../build",
     "devPath": "http://localhost:8000",
-    "beforeDevCommand": "yarn start:frontend",
+    "beforeDevCommand": "yarn start:web",
     "beforeBuildCommand": "yarn build:frontend"
   },
   "ctx": {},

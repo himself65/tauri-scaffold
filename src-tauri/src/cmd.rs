@@ -2,8 +2,8 @@ use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
 pub struct RequestBody {
-  id: u32,
-  name: String,
+  pub id: u32,
+  pub name: String,
 }
 
 #[derive(Deserialize)]
