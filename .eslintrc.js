@@ -21,7 +21,37 @@ module.exports = {
   },
   plugins: [
     'react',
-    '@typescript-eslint'
+    '@typescript-eslint',
+    'simple-import-sort'
   ],
-  rules: {}
+  rules: {
+    eqeqeq: 'error',
+    'no-eval': 'error',
+    'no-var': 'error',
+    'prefer-const': 'error',
+    'sort-imports': 'off',
+    'no-unused-vars': 'off',
+    'no-unused-expressions': 'warn',
+    'react/jsx-filename-extension': [
+      1,
+      {
+        extensions: [
+          '.js',
+          '.jsx',
+          '.ts',
+          '.tsx'
+        ]
+      }
+    ],
+    'import/prefer-default-export': 'off',
+    'jsx-quotes': [
+      'error',
+      'prefer-single'
+    ],
+    camelcase: 'off',
+    'react/prop-types': 'off',
+    'react/display-name': 'off',
+    'import/order': 'off',
+    'simple-import-sort/sort': 'error'
+  }
 }
