@@ -11,8 +11,6 @@ use crate::cmd::RequestBody;
 use lazy_static::lazy_static;
 use reqwest;
 use reqwest::Error;
-use serde_json::json;
-use std::borrow::Borrow;
 use std::collections::HashMap;
 use std::env;
 use std::sync::RwLock;
