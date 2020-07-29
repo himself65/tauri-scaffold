@@ -10,6 +10,7 @@ mod cmd;
 use crate::cmd::RequestBody;
 use lazy_static::lazy_static;
 use reqwest;
+use reqwest::Error;
 use serde_json::json;
 use std::borrow::Borrow;
 use std::collections::HashMap;
@@ -20,19 +21,20 @@ lazy_static! {
   static ref ADDRESS: RwLock<String> = RwLock::new(String::from("http://replace.me"));
 }
 
-fn post_id(body: &RequestBody) -> Result<String, reqwest::Error> {
+async fn post_id(body: &RequestBody) -> Result<String, Error> {
   let mut map: HashMap<&str, &str> = HashMap::new();
   let id = body.id.to_string();
   let name = &body.name;
   map.insert("id", id.as_str());
   map.insert("name", name.as_str());
 
-  reqwest::blocking::Client::new()
+  reqwest::Client::new()
     .post(&format!("{}/hello", ADDRESS.read().unwrap()))
     .json(&map)
-    .send()?
+    .send()
+    .await?
     .text()
-    .map_or(Ok("".to_string()), |v| Ok(v))
+    .await
 }
 
 fn main() {
@@ -65,8 +67,12 @@ fn main() {
             } => tauri::execute_promise(
               _webview,
               move || {
-                let res = post_id(&body);
-                Ok(res.map_or("".to_string(), |v| v))
+                let response = async_std::task::block_on(async { post_id(&body).await });
+                if let Ok(string) = response {
+                  Ok(format!("{}", string))
+                } else {
+                  Ok("".to_string())
+                }
               },
               callback,
               error,
