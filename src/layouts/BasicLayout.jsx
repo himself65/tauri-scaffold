@@ -1,85 +1,64 @@
-import {
-  AppBar,
-  Button,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-  Typography
-} from '@material-ui/core'
-import Icon from '@material-ui/core/Icon'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { Menu as MenuIcon } from '@material-ui/icons'
-import React, { useCallback, useState } from 'react'
+import 'antd/dist/antd.css'
+
+import { Button, Layout, Menu } from 'antd'
+import React from 'react'
 import importedComponent from 'react-imported-component'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom'
 
 import globalConfig from '../config'
 
+const { Header, Content, Sider } = Layout
 const asyncComponentFactory = resolve => importedComponent(resolve)
 
-const useStyles = makeStyles(theme =>
-  createStyles({
-    root: {
-      flexGrow: 1
-    },
-    menuButton: {
-      marginRight: theme.spacing(2)
-    },
-    title: {
-      flexGrow: 1
-    },
-    list: {
-      width: 250
-    }
-  })
-)
-
-const BasicLayout = () => {
-  const classes = useStyles()
-  const [isOpen, setOpen] = useState(false)
-  const onMenuIconClick = useCallback(() => {
-    setOpen(true)
-  }, [])
-  const onDrawerClose = useCallback(() => {
-    setOpen(false)
-  }, [])
-
+const DashboardView = () => {
   return (
     <BrowserRouter>
-      <AppBar position='static'>
-        <Toolbar>
-          <IconButton edge='start' className={classes.menuButton} color='inherit' aria-label='menu'>
-            <MenuIcon onClick={onMenuIconClick}/>
-          </IconButton>
-          <Typography variant='h6' className={classes.title}>
-            News
-          </Typography>
-          <Button color='inherit'>Login</Button>
-        </Toolbar>
-      </AppBar>
-      <Drawer open={isOpen} onClose={onDrawerClose}>
-        <List className={classes.list}>
-          {
-            globalConfig.routers.map(({ name, icon }) => (
-              <ListItem button key={name}>
-                <ListItemIcon><Icon>{icon}</Icon></ListItemIcon>
-                <ListItemText primary={name}/>
-              </ListItem>
-            ))
-          }
-        </List>
-      </Drawer>
-      <Switch>
-        {globalConfig.routers.map(({ component, name, to }) => (
-          <Route to={to} exact={to === '/'} component={asyncComponentFactory(component)} key={name}/>
-        ))}
-      </Switch>
+      <Layout className='winepot-layout'>
+        <Header className='header'>
+          <div className='logo' />
+          <Button type='link'>
+            更换节点
+          </Button>
+        </Header>
+        <Layout>
+          <Sider width={200} className='site-layout-background'>
+            <Menu
+              mode='inline'
+              defaultSelectedKeys={['1']}
+              defaultOpenKeys={['sub1']}
+              style={{ height: '100%', borderRight: 0 }}
+            >
+              {
+                globalConfig.routers.map(({ name, icon, to }) => (
+                  <Menu.Item key={name}>
+                    <Link to={to}>
+                      {name}
+                    </Link>
+                  </Menu.Item>
+                ))
+              }
+            </Menu>
+          </Sider>
+          <Layout style={{ padding: '0 24px 24px' }}>
+            <Content
+              className='site-layout-background'
+              style={{
+                padding: 24,
+                margin: 0,
+                minHeight: 280
+              }}
+            >
+              <Switch>
+                {globalConfig.routers.map(({ component, name, to }) => (
+                  <Route to={to} exact={to === '/'} component={asyncComponentFactory(component)} key={name}/>
+                ))}
+              </Switch>
+            </Content>
+          </Layout>
+        </Layout>
+      </Layout>
     </BrowserRouter>
   )
 }
 
-export default BasicLayout
+export default DashboardView

@@ -3,8 +3,6 @@
   "private": true,
   "license": "MIT",
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
     "antd": "^4.4.3",
     "concurrently": "^5.2.0",
     "mobx": "^5.15.4",
@@ -24,7 +22,7 @@
     "lint:eslint": "eslint --ext .jsx,.js,.ts,.tsx src",
     "start": "tauri dev",
     "start:mock": "cross-env PORT=8081 node mock/server.js",
-    "start:web": "cross-env PORT=8000 react-scripts start",
+    "start:web": "cross-env PORT=9325 react-scripts start",
     "start:frontend": "concurrently \"yarn start:mock\" \"yarn start:web\"",
     "build": "tauri build",
     "build:frontend": "react-scripts build",
