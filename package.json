@@ -66,6 +66,6 @@
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "eslint-plugin-standard": "^4.0.1",
-    "express": "^4.17.1"
+    "express": "^4.17.3"
   }
 }
